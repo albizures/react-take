@@ -13,14 +13,20 @@ interface Props {
 }
 
 export const TakeRoot: React.FC<Props> = (props) => {
-	const {
-		emitter = defaultEmitter,
-		store = defaultStore,
-		children,
-	} = props;
+	const [emitter] = React.useState(props.emitter || defaultEmitter);
+	const { children, store = defaultStore() } = props;
+
+	const storeRef = React.useRef(store);
+
+	React.useEffect(() => {
+		return () => {
+			emitter.all.clear();
+		};
+	}, [emitter]);
+
 	return (
 		<EmitterContext.Provider value={emitter}>
-			<StoreContext.Provider value={store}>
+			<StoreContext.Provider value={storeRef}>
 				{children}
 			</StoreContext.Provider>
 		</EmitterContext.Provider>
