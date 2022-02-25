@@ -1,19 +1,13 @@
 import React from 'react';
+import invariant from 'tiny-invariant';
 import { EmitterContext } from './context';
 
-export function useForceUpdate() {
-	const [, setValue] = React.useState(0);
-	return () => setValue((value) => value + 1);
-}
-
-export function useUpdate(eventName?: string) {
+export function useUpdate(eventName: string) {
 	const emitter = React.useContext(EmitterContext);
 	const [, forceUpdate] = React.useState(0);
 
 	React.useEffect(() => {
-		if (!eventName) {
-			return;
-		}
+		invariant(eventName, 'React Take: An event is required');
 
 		const onChange = () => {
 			forceUpdate((val) => val + 1);
