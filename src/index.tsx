@@ -41,6 +41,16 @@ export {
 } from './item';
 
 export {
+	createStruct,
+	useStruct,
+	useSetStruct,
+	useStructValue,
+	useStructItem,
+	useSetStructItem,
+	useStructItemValue,
+} from './struct';
+
+export {
 	createList,
 	useList,
 	useListItem,
