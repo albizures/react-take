@@ -18,6 +18,7 @@
 		"test": "vitest",
 		"test:lint": "eslint .",
 		"coverage": "vitest run --coverage",
+		"prepublish": "yarn build",
 		"release": "standard-version && git push --follow-tags origin HEAD"
 	},
 	"dependencies": {
