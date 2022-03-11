@@ -1,11 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-	TakeRoot,
-	createItem,
-	useItem,
-	useItemValue,
-} from '../../src';
+import { createItem, useItem, useItemValue } from '../src';
 
 const nameItem = createItem<string>('name');
 
@@ -23,8 +17,7 @@ const Nested = () => {
 		</div>
 	);
 };
-
-const App = () => {
+export const Basic = () => {
 	const name = useItemValue(nameItem, 'John');
 
 	return (
@@ -34,10 +27,3 @@ const App = () => {
 		</div>
 	);
 };
-
-ReactDOM.render(
-	<TakeRoot>
-		<App />
-	</TakeRoot>,
-	document.getElementById('root'),
-);

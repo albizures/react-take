@@ -2,14 +2,13 @@ import React from 'react';
 import {
 	useItemValue,
 	createItem,
-	useList,
-	createList,
 	useItem,
-	useListItem,
-} from '../../src';
+	createStruct,
+	useStructItem,
+} from '../src';
 
 const lastNameItem = createItem<string>('foo');
-const childrenCollection = createList<string>('children');
+const childrenCollection = createStruct<string[]>('children');
 
 interface ChildProps {
 	index: number;
@@ -17,7 +16,7 @@ interface ChildProps {
 
 const Child = (props: ChildProps) => {
 	const [isEditing, setEditing] = React.useState(false);
-	const [firstName, setFirstName] = useListItem(
+	const [firstName, setFirstName] = useStructItem(
 		childrenCollection,
 		props.index,
 	);
@@ -46,7 +45,7 @@ const Child = (props: ChildProps) => {
 
 const Family = () => {
 	const [lastName, setLastName] = useItem(lastNameItem, 'Parker');
-	const [children, setChildren] = useList(childrenCollection, []);
+	const [children, setChildren] = useItem(childrenCollection, []);
 
 	React.useEffect(() => {
 		setChildren(['Peter', 'Miles', 'Gwen']);
@@ -70,5 +69,4 @@ const Family = () => {
 		</div>
 	);
 };
-
-export default Family;
+export { Family as Collection };
