@@ -22,11 +22,21 @@ import { useUpdate } from './utils';
  * Returns the item value in the given struct, and
  * subscribes the component to the item updates
  */
-export const useStructItemValue = <T>(
+function useStructItemValue<T>(
+	tokenId: TokenId<T>,
+	item: KeyOf<T>,
+	defaultValue: ValOf<T>,
+): ValOf<T>;
+function useStructItemValue<T>(
+	tokenId: TokenId<T>,
+	item: KeyOf<T>,
+	defaultValue: undefined,
+): ValOf<T> | undefined;
+function useStructItemValue<T>(
 	tokenId: TokenId<T>,
 	item: KeyOf<T>,
 	defaultValue?: ValOf<T>,
-): ValOf<T> => {
+) {
 	const { current: store } = React.useContext(StoreContext);
 
 	useUpdate(`${tokenId.key}-${item}`);
@@ -37,17 +47,14 @@ export const useStructItemValue = <T>(
 		struct[key] = defaultValue as T[keyof T];
 	}
 
-	return (store[tokenId.key] as T)?.[key] as ValOf<T>;
-};
+	return (store[tokenId.key] as T)?.[key] as ValOf<T> | undefined;
+}
 
 /**
  * Returns a setter function for an item in given struct,
  * without subscribing the component to the item updates
  */
-export const useSetStructItem = <T>(
-	tokenId: TokenId<T>,
-	item: KeyOf<T>,
-) => {
+const useSetStructItem = <T>(tokenId: TokenId<T>, item: KeyOf<T>) => {
 	const set = useSetStruct(tokenId);
 
 	return React.useCallback(
@@ -62,22 +69,28 @@ export const useSetStructItem = <T>(
  * Returns the item value in the given struct, and
  * subscribes the component to the struct updates
  */
-export const useStructItem = <T>(
+function useStructItem<T>(
 	tokenId: TokenId<T>,
 	item: KeyOf<T>,
-	defaultValue?: ValOf<T>,
-): [ValOf<T>, (value: ValOf<T>) => void] => {
+	defaultValue?: undefined,
+): [ValOf<T> | undefined, (value: ValOf<T>) => void];
+function useStructItem<T>(
+	tokenId: TokenId<T>,
+	item: KeyOf<T>,
+	defaultValue: ValOf<T>,
+): [ValOf<T>, (value: ValOf<T>) => void];
+function useStructItem<T>(tokenId: TokenId<T>, item: KeyOf<T>, defaultValue: ValOf<T>) {
 	return [
 		useStructItemValue(tokenId, item, defaultValue),
 		useSetStructItem(tokenId, item),
 	];
-};
+}
 
 /**
  * Returns a setter function for any item in given struct,
  * without subscribing the component to the struct updates
  */
-export const useSetStruct = <T>(tokenId: TokenId<T>) => {
+function useSetStruct<T>(tokenId: TokenId<T>) {
 	const emitter = React.useContext(EmitterContext);
 	const { current: store } = React.useContext(StoreContext);
 
@@ -97,16 +110,13 @@ export const useSetStruct = <T>(tokenId: TokenId<T>) => {
 		},
 		[emitter, store, tokenId.key],
 	);
-};
+}
 
 /**
  * Returns the struct value, and subscribes the component
  * to the struct updates and any item update
  */
-export const useStructValue = <T>(
-	tokenId: TokenId<T>,
-	defaultValue?: T,
-): T | undefined => {
+function useStructValue<T>(tokenId: TokenId<T>, defaultValue?: T): T | undefined {
 	const { current: store } = React.useContext(StoreContext);
 
 	useUpdate(tokenId.key);
@@ -117,21 +127,24 @@ export const useStructValue = <T>(
 	}
 
 	return store[tokenId.key] as T;
-};
+}
 
 /**
  * Similar to React.useState, returns a tuples where the first element
  * is the struct value and the second is a setter function for any item in the struc
  */
-export const useStruct = <T>(
+function useStruct<T>(
 	tokenId: TokenId<T>,
 	defaultValue?: T,
-): [
-	T | undefined,
-	(item: KeyOf<T>, value: SetterOrVal<ValOf<T>>) => void,
-] => {
-	return [
-		useStructValue(tokenId, defaultValue),
-		useSetStruct(tokenId),
-	];
+): [T | undefined, (item: KeyOf<T>, value: SetterOrVal<ValOf<T>>) => void] {
+	return [useStructValue(tokenId, defaultValue), useSetStruct(tokenId)];
+}
+
+export {
+	useStructItemValue,
+	useSetStructItem,
+	useStructItem,
+	useSetStruct,
+	useStructValue,
+	useStruct,
 };

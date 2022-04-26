@@ -1,4 +1,5 @@
-import { describe, it, expect, spyOn } from 'vitest';
+import React from 'react';
+import { describe, it, expect, vi } from 'vitest';
 import { act, renderHook } from '@testing-library/react-hooks/native';
 import { TakeRoot } from './';
 import mitt from 'mitt';
@@ -10,6 +11,7 @@ describe('useUpdate', () => {
 		const { result } = renderHook(() => useUpdate('some-name'), {
 			wrapper: TakeRoot,
 			initialProps: {
+				children: <div />,
 				emitter,
 			},
 		});
@@ -25,10 +27,11 @@ describe('useUpdate', () => {
 	describe('when the component is unmounted', () => {
 		it('should unsubscribe from the event', () => {
 			const emitter = mitt();
-			const spy = spyOn(emitter, 'off');
+			const spy = vi.spyOn(emitter, 'off');
 			const { unmount } = renderHook(() => useUpdate('some-name'), {
 				wrapper: TakeRoot,
 				initialProps: {
+					children: <div />,
 					emitter,
 				},
 			});

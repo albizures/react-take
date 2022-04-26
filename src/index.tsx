@@ -10,9 +10,10 @@ import {
 interface Props {
 	emitter?: Emitter<Record<EventType, unknown>>;
 	store?: Record<string, unknown>;
+	children: React.ReactNode;
 }
 
-export const TakeRoot: React.FC<Props> = (props) => {
+export function TakeRoot(props: Props) {
 	const [emitter] = React.useState(props.emitter || defaultEmitter);
 	const { children, store = defaultStore() } = props;
 
@@ -31,7 +32,7 @@ export const TakeRoot: React.FC<Props> = (props) => {
 			</StoreContext.Provider>
 		</EmitterContext.Provider>
 	);
-};
+}
 
 export {
 	createItem,

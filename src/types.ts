@@ -3,9 +3,7 @@ export interface TokenId<_T> {
 }
 
 export type SetterCallback<T> = (value: T) => T;
-export const isSetCallback = <T>(
-	cb: T | SetterCallback<T>,
-): cb is SetterCallback<T> => {
+export const isSetCallback = <T>(cb: T | SetterCallback<T>): cb is SetterCallback<T> => {
 	return typeof cb === 'function';
 };
 

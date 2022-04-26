@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { act, renderHook } from '@testing-library/react-hooks/native';
 import { createItem, TakeRoot, useItem, useSetItem } from './';
@@ -13,6 +14,7 @@ describe('useSetItem', () => {
 		const { result } = renderHook(() => useSetItem(counterItem), {
 			wrapper: TakeRoot,
 			initialProps: {
+				children: <div />,
 				store,
 			},
 		});

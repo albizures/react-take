@@ -1,3 +1,4 @@
+import React from 'react';
 import { renderHook, act } from '@testing-library/react-hooks/native';
 import { describe, expect, it } from 'vitest';
 import { TakeRoot } from './';
@@ -19,23 +20,17 @@ const defaultValue = (): Counter => ({
 describe('useStruct', () => {
 	describe('when struct is empty', () => {
 		it('should return the default value', () => {
-			const { result } = renderHook(
-				() => useStruct(counterStruct, defaultValue()),
-				{
-					wrapper: TakeRoot,
-				},
-			);
+			const { result } = renderHook(() => useStruct(counterStruct, defaultValue()), {
+				wrapper: TakeRoot,
+			});
 
 			expect(result.current[0]).toEqual(defaultValue());
 		});
 		describe('when no default value is provided', () => {
 			it('should return undefined', () => {
-				const { result } = renderHook(
-					() => useStruct(counterStruct),
-					{
-						wrapper: TakeRoot,
-					},
-				);
+				const { result } = renderHook(() => useStruct(counterStruct), {
+					wrapper: TakeRoot,
+				});
 
 				expect(result.current[0]).toEqual(undefined);
 			});
@@ -44,12 +39,9 @@ describe('useStruct', () => {
 
 	describe('when the struct changes', () => {
 		it('should return the latest value', async () => {
-			const { result } = renderHook(
-				() => useStruct(counterStruct, defaultValue()),
-				{
-					wrapper: TakeRoot,
-				},
-			);
+			const { result } = renderHook(() => useStruct(counterStruct, defaultValue()), {
+				wrapper: TakeRoot,
+			});
 
 			act(() => {
 				result.current[1]('value', (value) => value - 1);
@@ -66,17 +58,15 @@ describe('useStruct', () => {
 
 describe('useStructItem', () => {
 	it('return a current value and a setter', () => {
-		const { result } = renderHook(
-			() => useStructItem(counterStruct, 'value'),
-			{
-				wrapper: TakeRoot,
-				initialProps: {
-					store: {
-						[counterStruct.key]: defaultValue(),
-					},
+		const { result } = renderHook(() => useStructItem(counterStruct, 'value'), {
+			wrapper: TakeRoot,
+			initialProps: {
+				children: <div />,
+				store: {
+					[counterStruct.key]: defaultValue(),
 				},
 			},
-		);
+		});
 
 		expect(result.current[0]).toEqual(defaultValue()['value']);
 		act(() => {
@@ -87,17 +77,15 @@ describe('useStructItem', () => {
 
 	describe('when the struct is empty', () => {
 		it('should', () => {
-			const { result } = renderHook(
-				() => useStructItem(counterStruct, 'value', 10),
-				{
-					wrapper: TakeRoot,
-					initialProps: {
-						store: {
-							[counterStruct.key]: {},
-						},
+			const { result } = renderHook(() => useStructItem(counterStruct, 'value', 10), {
+				wrapper: TakeRoot,
+				initialProps: {
+					children: <div />,
+					store: {
+						[counterStruct.key]: {},
 					},
 				},
-			);
+			});
 
 			expect(result.current[0]).toEqual(10);
 		});
