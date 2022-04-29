@@ -1,7 +1,16 @@
 {
 	"name": "react-take",
 	"version": "0.0.6",
-	"main": "dist/index.js",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"require": "./dist/index.js",
+			"import": "./dist/index.mjs",
+			"types": "./dist/index.d.ts"
+		}
+	},
 	"author": {
 		"name": "Jose Albizures",
 		"email": "albizures@vk.com",
@@ -13,7 +22,8 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc -p ./tsconfig.build.json",
+		"build": "tsup",
+		"build2": "tsc -p ./tsconfig.build.json",
 		"preview": "vite preview",
 		"test": "vitest",
 		"test:lint": "eslint .",
@@ -50,6 +60,7 @@
 		"react-test-renderer": "^18.0.0",
 		"rollup-plugin-dts": "^4.2.0",
 		"standard-version": "^9.3.2",
+		"tsup": "^5.12.6",
 		"typescript": "^4.6.2",
 		"vite": "^2.8.6",
 		"vitest": "^0.10.0"

@@ -53,11 +53,11 @@ function useSetItem<T>(tokenId: TokenId<T>) {
  */
 function useItem<T>(
 	tokenId: TokenId<T>,
-	defaultValue: undefined,
+	defaultValue?: undefined,
 ): [T | undefined, (value: SetterOrVal<T>) => void];
 function useItem<T>(
 	tokenId: TokenId<T>,
-	defaultValue?: T,
+	defaultValue: T,
 ): [T, (value: SetterOrVal<T>) => void];
 function useItem<T>(tokenId: TokenId<T>, defaultValue?: T) {
 	return [useItemValue(tokenId, defaultValue), useSetItem(tokenId)];
