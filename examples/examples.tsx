@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createItem, TakeRoot, useItem, useItemValue } from '../src';
+import { createItem, useItem, useItemValue } from '../src';
 
 import { Basic } from './basic';
 import { Collection } from './struct';
@@ -9,7 +9,7 @@ const exampleItem = createItem<string>('example');
 
 const Button = (props: { name: string }) => {
 	const { name } = props;
-	const [current, setExample] = useItem(exampleItem);
+	const [current, setExample] = useItem(exampleItem, '2');
 
 	return (
 		<button
@@ -36,9 +36,7 @@ function App() {
 
 ReactDOM.render(
 	<React.StrictMode>
-		<TakeRoot>
-			<App />
-		</TakeRoot>
+		<App />
 	</React.StrictMode>,
 	document.getElementById('root'),
 );

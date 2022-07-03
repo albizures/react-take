@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-	useItemValue,
-	createItem,
-	useItem,
-	createStruct,
-	useStructItem,
-} from '../src';
+import { useItemValue, createItem, useItem } from '../src';
+import { createStruct, useStructItem } from '../src/struct';
 
 const lastNameItem = createItem<string>('foo');
 const childrenCollection = createStruct<string[]>('children');
@@ -16,10 +11,7 @@ interface ChildProps {
 
 const Child = (props: ChildProps) => {
 	const [isEditing, setEditing] = React.useState(false);
-	const [firstName, setFirstName] = useStructItem(
-		childrenCollection,
-		props.index,
-	);
+	const [firstName, setFirstName] = useStructItem(childrenCollection, props.index);
 	const lastName = useItemValue(lastNameItem);
 
 	const onChange = (event: { target: HTMLInputElement }) => {
@@ -28,12 +20,7 @@ const Child = (props: ChildProps) => {
 
 	return (
 		<li>
-			{isEditing ? (
-				<input onChange={onChange} value={firstName} />
-			) : (
-				firstName
-			)}{' '}
-			{lastName}{' '}
+			{isEditing ? <input onChange={onChange} value={firstName} /> : firstName} {lastName}{' '}
 			{isEditing ? (
 				<button onClick={() => setEditing(false)}>save</button>
 			) : (
@@ -58,8 +45,7 @@ const Family = () => {
 	return (
 		<div>
 			<label>
-				Family Name{' '}
-				<input type="text" value={lastName} onChange={onChange} />
+				Family Name <input type="text" value={lastName} onChange={onChange} />
 			</label>
 			<ul>
 				{children.map((_, index) => {

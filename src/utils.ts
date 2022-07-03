@@ -2,7 +2,7 @@ import React from 'react';
 import invariant from 'tiny-invariant';
 import { EmitterContext } from './context';
 
-export function useUpdate(eventName?: string) {
+export function useUpdate(eventName?: string | symbol) {
 	const emitter = React.useContext(EmitterContext);
 	const [, forceUpdate] = React.useState(0);
 

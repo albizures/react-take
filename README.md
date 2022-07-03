@@ -17,12 +17,7 @@
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-	TakeRoot,
-	createItem,
-	useItem,
-	useItemValue,
-} from '../../src';
+import { createItem, useItem, useItemValue } from '../../src';
 
 const nameItem = createItem('name');
 
@@ -52,63 +47,54 @@ const App = () => {
 	);
 };
 
-ReactDOM.render(
-	<TakeRoot>
-		<App />
-	</TakeRoot>,
-	document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 ## API
 
-### createItem(key: string): TokenId
+### createItem(key: string, defaultValue?): Token
 
 Creates a new item and returns its 'id'
 
-### useItem(tokenId: TokenId, defaultValue?): [value, Setter]
+### useItem(token: Token, defaultValue?): [value, Setter]
 
 Similar to React.useState, returns a tuples where the first element is the item value and the second is a setter function
 
-### useSetItem(tokenId: TokenId): Setter
+### useSetItem(token: Token): Setter
 
 Returns a setter function for the given item, without subscribing the component to the item updates
 
-### useItemValue(tokenId: TokenId, defaultValue?): value
+### useItemValue(token: Token, defaultValue?): value
 
 Returns the value of the given item, and subscribes the component to the item updates
 
-### createStruct(key: string): TokenId
+### createStruct(key: string, defaultValue?): Token
 
 Creates a new struct and returns its 'id'
 
-### useStruct(tokenId: TokenId, defaultValue?): [value, Setter]
+### useStruct(token: Token, defaultValue?): [value, Setter]
 
 Similar to React.useState, returns a tuples where the first element is the struct value and the second is a setter function for any item in the struc
 
-### useSetStruct(tokenId: TokenId): Setter
+### useSetStruct(token: Token): Setter
 
 Returns a setter function for any item in given struct, without subscribing the component to the struct updates
 
-### useStructValue(tokenId: TokenId<T>, defaultValue?):
+### useStructValue(token: Token<T>, defaultValue?):
 
 Returns the struct value, and subscribes the component to the struct updates and any item update
 
-### useStructItem(tokenId: TokenId, item: string | number, defaultValue?): [value, Setter]
+### useStructItem(token: Token, item: string | number, defaultValue?): [value, Setter]
 
 Returns the item value in the given struct, and subscribes the component to the struct updates
 
-### useSetStructItem(tokenId: TokenId, item: string | number): Setter
+### useSetStructItem(token: Token, item: string | number): Setter
 
 Returns a setter function for an item in given struct, without subscribing the component to the item updates
 
-### useStructItemValue(tokenId: TokenId, item: string | number, defaultValue?): value
+### useStructItemValue(token: Token, item: string | number, defaultValue?): value
 
 Returns the item value in the given struct, and subscribes the component to the item updates
-
-### useClearTree(TokenId[]?)
-
-Clear the entiry store or specific items when the component is unmounted. This is useful when changing page and each page store big amounts data
 
 ## Feedback
 
