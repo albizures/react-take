@@ -9,6 +9,11 @@
 			"require": "./dist/index.js",
 			"import": "./dist/index.mjs",
 			"types": "./dist/index.d.ts"
+		},
+		"./struct": {
+			"require": "./dist/struct.js",
+			"import": "./dist/struct.mjs",
+			"types": "./dist/struct.d.ts"
 		}
 	},
 	"author": {
