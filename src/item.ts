@@ -23,7 +23,14 @@ export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>
 	function useItemValue<T>(token: Token<T, S>, defaultValue?: T) {
 		useUpdate(token.key);
 
-		return (store[token.key] as T) || defaultValue || token.defaultValue;
+		if (!(token.key in store)) {
+			const value = defaultValue || token.defaultValue;
+			if (value) {
+				(store[token.key] as T) = value;
+			}
+		}
+
+		return store[token.key] as T;
 	}
 
 	/**
