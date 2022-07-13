@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/albizures/react-take/compare/v0.1.1...v0.1.3) (2022-07-13)
+
+
+### Features
+
+* create setValue function ([77c42b6](https://github.com/albizures/react-take/commit/77c42b6eec3bf007e8dbcfe78c14e123bf05933a))
+
+
+### Bug Fixes
+
+* update value when default is available ([a9ddcf9](https://github.com/albizures/react-take/commit/a9ddcf9da8d7ce87ea804d75745984270513ff70))
+
 ### [0.1.1](https://github.com/albizures/react-take/compare/v0.1.0...v0.1.1) (2022-07-03)
 
 
