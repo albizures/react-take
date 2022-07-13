@@ -1,5 +1,5 @@
 import React from 'react';
-import { useItemValue, createItem, useItem, defaulStore } from '../src';
+import { useItemValue, createItem, useItem } from '../src';
 import { createStruct, useStructItem } from '../src/struct';
 
 const lastNameItem = createItem<string>('foo');
