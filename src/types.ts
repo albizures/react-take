@@ -23,5 +23,6 @@ export interface StoreToken<S extends UnknowStore> {
 	token<T extends S[keyof S]>(key: keyof S): Token<T, S>;
 	getValue<T>(token: Token<T, S>, defaultValue: T): T;
 	getValue<T>(token: Token<T, S>, defaultValue?: undefined): T | undefined;
+	setValue<T extends S[keyof S]>(token: Token<T, S>, newValue: T): StoreToken<S>;
 	value: S;
 }
