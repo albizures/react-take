@@ -22,6 +22,10 @@ export function createStore<S extends UnknowStore>(key: string, value: S): Store
 		getValue<T>(token: Token<T, S>, defaultValue?: T) {
 			return (value[token.key] as T) || defaultValue || token.defaultValue;
 		},
+		setValue<T extends S[keyof S]>(token: Token<T, S>, newValue: T) {
+			(value[token.key] as T) = newValue;
+			return store;
+		},
 		value,
 	};
 
