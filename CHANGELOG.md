@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/albizures/react-take/compare/v0.1.5...v0.1.6) (2022-08-02)
+
+
+### Features
+
+* allow react 18 ([18870be](https://github.com/albizures/react-take/commit/18870be077f366ef7671a13d2992c49f27a71185))
+
 ### [0.1.5](https://github.com/albizures/react-take/compare/v0.1.4...v0.1.5) (2022-07-13)
 
 
