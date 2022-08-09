@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/albizures/react-take/compare/v0.1.6...v0.2.0) (2022-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove the need of react context
+* remove struct hooks
+
+### Features
+
+* remove struct hooks ([6bbba04](https://github.com/albizures/react-take/commit/6bbba046d2874c772c2a5859f8def3e552cdbba6))
+* remove the need of react context ([f111cc3](https://github.com/albizures/react-take/commit/f111cc386849f47be50deffbb1ac08dc5c98dd52))
+
 ### [0.1.6](https://github.com/albizures/react-take/compare/v0.1.5...v0.1.6) (2022-08-02)
 
 
