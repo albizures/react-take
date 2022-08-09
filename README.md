@@ -68,34 +68,6 @@ Returns a setter function for the given item, without subscribing the component 
 
 Returns the value of the given item, and subscribes the component to the item updates
 
-### createStruct(key: string, defaultValue?): Token
-
-Creates a new struct and returns its 'id'
-
-### useStruct(token: Token, defaultValue?): [value, Setter]
-
-Similar to React.useState, returns a tuples where the first element is the struct value and the second is a setter function for any item in the struc
-
-### useSetStruct(token: Token): Setter
-
-Returns a setter function for any item in given struct, without subscribing the component to the struct updates
-
-### useStructValue(token: Token<T>, defaultValue?):
-
-Returns the struct value, and subscribes the component to the struct updates and any item update
-
-### useStructItem(token: Token, item: string | number, defaultValue?): [value, Setter]
-
-Returns the item value in the given struct, and subscribes the component to the struct updates
-
-### useSetStructItem(token: Token, item: string | number): Setter
-
-Returns a setter function for an item in given struct, without subscribing the component to the item updates
-
-### useStructItemValue(token: Token, item: string | number, defaultValue?): value
-
-Returns the item value in the given struct, and subscribes the component to the item updates
-
 ## Feedback
 
 If you have any feedback, please reach out to us at [@albzrs](https://twitter.com/albzrs)
