@@ -1,4 +1,4 @@
-import { useUpdate } from './utils';
+import { useSubscribeTo } from './utils';
 import {
 	isSetCallback,
 	SetItem,
@@ -7,7 +7,6 @@ import {
 	Token,
 	UnknowStore,
 } from './types';
-import { EmitterContext } from './context';
 import React from 'react';
 import { defaulStore } from './store';
 
@@ -21,7 +20,7 @@ export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>
 	function useItemValue<T>(token: Token<T, S>, defaultValue: T): T;
 	function useItemValue<T>(token: Token<T, S>, defaultValue?: undefined): T | undefined;
 	function useItemValue<T>(token: Token<T, S>, defaultValue?: T) {
-		useUpdate(token.key);
+		useSubscribeTo(token);
 
 		if (!(token.key in store)) {
 			const value = defaultValue || token.defaultValue;
@@ -38,16 +37,15 @@ export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>
 	 * subscribing the component to the item updates
 	 */
 	function useSetItem<T>(token: Token<T, S>) {
-		const emitter = React.useContext(EmitterContext);
 		return React.useCallback(
 			(value: SetterOrVal<T>) => {
 				(store[token.key] as T) = isSetCallback(value)
 					? value(store[token.key] as T)
 					: value;
 
-				emitter.emit(token.key);
+				token.store.emitter.emit(token.key);
 			},
-			[emitter, token.key],
+			[token],
 		);
 	}
 

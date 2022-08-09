@@ -29,15 +29,15 @@
 		"dev": "vite",
 		"build": "tsup",
 		"preview": "vite preview",
-		"test": "vitest",
+		"test": "pnpm test:types && pnpm test:lint && vitest",
+		"test:types": "tsc --noEmit",
 		"test:lint": "eslint .",
 		"coverage": "vitest run --coverage",
 		"prerelease": "pnpm build",
 		"release": "standard-version && git push --follow-tags origin HEAD"
 	},
 	"dependencies": {
-		"mitt": "^3.0.0",
-		"tiny-invariant": "^1.2.0"
+		"mitt": "^3.0.0"
 	},
 	"peerDependencies": {
 		"react": "^17.0.2 || ^18"

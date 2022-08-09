@@ -1,22 +1,20 @@
 import React from 'react';
-import invariant from 'tiny-invariant';
-import { EmitterContext } from './context';
+import { Token, UnknowStore } from './types';
 
-export function useUpdate(eventName?: string | symbol) {
-	const emitter = React.useContext(EmitterContext);
+export function useSubscribeTo<T, S extends UnknowStore>(token: Token<T, S>) {
 	const [, forceUpdate] = React.useState(0);
 
 	React.useEffect(() => {
-		invariant(eventName, 'React Take: An event is required');
-
+		const { store, key } = token;
+		const { emitter } = store;
 		const onChange = () => {
 			forceUpdate((val) => val + 1);
 		};
 
-		emitter.on(eventName, onChange);
+		emitter.on(key, onChange);
 
 		return () => {
-			emitter.off(eventName, onChange);
+			emitter.off(key, onChange);
 		};
-	}, [emitter, eventName]);
+	}, [token]);
 }

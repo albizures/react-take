@@ -1,3 +1,5 @@
+import { Emitter, EventType } from 'mitt';
+
 export type KeyOf<T> = T extends unknown[] ? number : keyof T;
 export type ValOf<T> = T extends (infer U)[] ? U : T[keyof T];
 
@@ -19,6 +21,7 @@ export interface Token<T, S extends UnknowStore> {
 
 export interface StoreToken<S extends UnknowStore> {
 	key: string;
+	emitter: Emitter<Record<EventType, unknown>>;
 	token<T extends S[keyof S]>(key: keyof S, defaultValue: T): Token<T, S>;
 	token<T extends S[keyof S]>(key: keyof S): Token<T, S>;
 	getValue<T>(token: Token<T, S>, defaultValue: T): T;
