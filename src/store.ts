@@ -10,7 +10,7 @@ export function createStore<S extends UnknowStore>(key: string, value: S): Store
 		emitter,
 		token<T extends S[keyof S]>(key: keyof S, defaultValue?: T): Token<T, S> {
 			const finalKey = typeof key === 'symbol' ? key : `${storeKey}:${String(key)}`;
-			if (defaultValue) {
+			if (typeof defaultValue !== 'undefined') {
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-expect-error
 				value[finalKey] = defaultValue;

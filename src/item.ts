@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSubscribeTo } from './utils';
 import {
 	isSetCallback,
@@ -7,7 +8,6 @@ import {
 	Token,
 	UnknowStore,
 } from './types';
-import React from 'react';
 import { defaulStore } from './store';
 
 export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>) {
@@ -24,7 +24,7 @@ export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>
 
 		if (!(token.key in store)) {
 			const value = defaultValue || token.defaultValue;
-			if (value) {
+			if (typeof value !== 'undefined') {
 				(store[token.key] as T) = value;
 			}
 		}
