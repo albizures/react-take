@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/albizures/react-take/compare/v0.2.1...v0.2.2) (2022-09-14)
+
+
+### Bug Fixes
+
+* allow zeros empty strings ([6e480fa](https://github.com/albizures/react-take/commit/6e480fab0b95010677b16d1c4860a93d4f7889ce))
+
 ### [0.2.1](https://github.com/albizures/react-take/compare/v0.2.0...v0.2.1) (2022-08-09)
 
 ## [0.2.0](https://github.com/albizures/react-take/compare/v0.1.6...v0.2.0) (2022-08-09)
