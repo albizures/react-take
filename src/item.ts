@@ -1,18 +1,9 @@
 import React from 'react';
-import { useSubscribeTo } from './utils';
-import {
-	isSetCallback,
-	SetItem,
-	SetterOrVal,
-	StoreToken,
-	Token,
-	UnknowStore,
-} from './types';
+import { getItem, setItem, useSubscribeTo } from './utils';
+import { SetItem, SetterOrVal, StoreToken, Token, UnknowStore } from './types';
 import { defaulStore } from './store';
 
 export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>) {
-	const store = storeToken.value;
-
 	/**
 	 * Returns the value of the given item, and
 	 * subscribes the component to the item updates
@@ -22,14 +13,7 @@ export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>
 	function useItemValue<T>(token: Token<T, S>, defaultValue?: T) {
 		useSubscribeTo(token);
 
-		if (!(token.key in store)) {
-			const value = defaultValue || token.defaultValue;
-			if (typeof value !== 'undefined') {
-				(store[token.key] as T) = value;
-			}
-		}
-
-		return store[token.key] as T;
+		return getItem(token, defaultValue);
 	}
 
 	/**
@@ -37,16 +21,7 @@ export function createItemHooks<S extends UnknowStore>(storeToken: StoreToken<S>
 	 * subscribing the component to the item updates
 	 */
 	function useSetItem<T>(token: Token<T, S>) {
-		return React.useCallback(
-			(value: SetterOrVal<T>) => {
-				(store[token.key] as T) = isSetCallback(value)
-					? value(store[token.key] as T)
-					: value;
-
-				token.store.emitter.emit(token.key);
-			},
-			[token],
-		);
+		return React.useCallback((value: SetterOrVal<T>) => setItem(token, value), [token]);
 	}
 
 	/**

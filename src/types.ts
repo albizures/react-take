@@ -24,8 +24,18 @@ export interface StoreToken<S extends UnknowStore> {
 	emitter: Emitter<Record<EventType, unknown>>;
 	token<T extends S[keyof S]>(key: keyof S, defaultValue: T): Token<T, S>;
 	token<T extends S[keyof S]>(key: keyof S): Token<T, S>;
+	/**
+	 * @deprecated
+	 */
 	getValue<T>(token: Token<T, S>, defaultValue: T): T;
+	/**
+	 * @deprecated
+	 */
 	getValue<T>(token: Token<T, S>, defaultValue?: undefined): T | undefined;
+
+	/**
+	 * @deprecated
+	 */
 	setValue<T extends S[keyof S]>(token: Token<T, S>, newValue: T): StoreToken<S>;
 	value: S;
 }

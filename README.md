@@ -68,6 +68,14 @@ Returns a setter function for the given item, without subscribing the component 
 
 Returns the value of the given item, and subscribes the component to the item updates
 
+### getItem(token: Token, defaultValue?): value
+
+Returns the value of the given item
+
+### setItem(token: Token, value: T | (current: T) => T): Setter
+
+A setter function for the given item
+
 ## Feedback
 
 If you have any feedback, please reach out to us at [@albzrs](https://twitter.com/albzrs)
