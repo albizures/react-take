@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.3](https://github.com/albizures/react-take/compare/v0.2.2...v0.2.3) (2022-09-29)
+
+
+### Features
+
+* create set and get items functions ([891fc0f](https://github.com/albizures/react-take/commit/891fc0f864a654ff64ca0b6585544c5b7eae7ad9))
+
 ### [0.2.2](https://github.com/albizures/react-take/compare/v0.2.1...v0.2.2) (2022-09-14)
 
 
