@@ -13,17 +13,27 @@ export type SetterOrVal<T> = T | SetterCallback<T>;
 
 export type UnknowStore = Record<string | number | symbol, unknown>;
 
-export interface Token<T, S extends UnknowStore> {
+export interface TokenWithDefault<T, S extends UnknowStore> {
+	key: string | symbol;
+	defaultValue: T;
+	store: StoreToken<S>;
+}
+
+export interface TokenWithoutDefault<T, S extends UnknowStore> {
 	key: string | symbol;
 	defaultValue?: T;
 	store: StoreToken<S>;
 }
 
+export type Token<T, S extends UnknowStore> =
+	| TokenWithoutDefault<T, S>
+	| TokenWithDefault<T, S>;
+
 export interface StoreToken<S extends UnknowStore> {
 	key: string;
 	emitter: Emitter<Record<EventType, unknown>>;
-	token<T extends S[keyof S]>(key: keyof S, defaultValue: T): Token<T, S>;
-	token<T extends S[keyof S]>(key: keyof S): Token<T, S>;
+	token<T extends S[keyof S]>(key: keyof S, defaultValue: T): TokenWithDefault<T, S>;
+	token<T extends S[keyof S]>(key: keyof S): TokenWithoutDefault<T, S>;
 	/**
 	 * @deprecated
 	 */

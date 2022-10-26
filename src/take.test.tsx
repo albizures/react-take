@@ -1,9 +1,10 @@
 import React from 'react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { act, renderHook } from '@testing-library/react-hooks/native';
-import { createItem, useItem, useSetItem, defaulStore } from './';
+import { createItem, useItem, useSetItem, defaulStore, useItemValue } from './';
 
 const counterItem = createItem<number>('counter');
+const withDefaultItem = createItem<number>('with-default', 10);
 
 function setDefaultValue() {
 	defaulStore.value[counterItem.key] = 0;
@@ -26,6 +27,20 @@ describe('useSetItem', () => {
 		});
 
 		expect(defaulStore.value[counterItem.key]).toBe(10);
+	});
+});
+
+describe('useItemValue', () => {
+	describe('with default value', () => {
+		it('should return the default value', () => {
+			const { result } = renderHook(() => useItemValue(withDefaultItem), {
+				initialProps: {
+					children: <div />,
+				},
+			});
+
+			expect(result.current).toBe(withDefaultItem.defaultValue);
+		});
 	});
 });
 

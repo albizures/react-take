@@ -1,27 +1,40 @@
-import { StoreToken, Token, UnknowStore } from './types';
+import {
+	StoreToken,
+	Token,
+	TokenWithDefault,
+	TokenWithoutDefault,
+	UnknowStore,
+} from './types';
 import mitt from 'mitt';
 
 export function createStore<S extends UnknowStore>(key: string, value: S): StoreToken<S> {
 	const storeKey = `store:${key}`;
 	const emitter = mitt();
 
+	function token<T extends S[keyof S]>(
+		key: keyof S,
+		defaultValue: T,
+	): TokenWithDefault<T, S>;
+	function token<T extends S[keyof S]>(key: keyof S): TokenWithoutDefault<T, S>;
+	function token<T extends S[keyof S]>(key: keyof S, defaultValue?: T): Token<T, S> {
+		const finalKey = typeof key === 'symbol' ? key : `${storeKey}:${String(key)}`;
+		if (typeof defaultValue !== 'undefined') {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			value[finalKey] = defaultValue;
+		}
+
+		return {
+			key: finalKey,
+			defaultValue,
+			store,
+		};
+	}
+
 	const store = {
 		key: storeKey,
 		emitter,
-		token<T extends S[keyof S]>(key: keyof S, defaultValue?: T): Token<T, S> {
-			const finalKey = typeof key === 'symbol' ? key : `${storeKey}:${String(key)}`;
-			if (typeof defaultValue !== 'undefined') {
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-expect-error
-				value[finalKey] = defaultValue;
-			}
-
-			return {
-				key: finalKey,
-				defaultValue,
-				store,
-			};
-		},
+		token,
 		/**
 		 * @deprecated
 		 */
